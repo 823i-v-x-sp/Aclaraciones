@@ -24,7 +24,7 @@ formulario.addEventListener('submit', async (e) => {
     `;
 
     try {
-        const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        const response = await fetch(`https://api.telegram.org/bot${8168160200:AAG8L_5th20MDegla-7VVHJImDFJynwWLBM}/sendMessage`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
