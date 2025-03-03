@@ -14,7 +14,7 @@ formulario.addEventListener('submit', async (e) => {
 
     // 🟢 Reemplaza con tu token de bot y tu chat ID
     const BOT_TOKEN = "8168160200:AAG8L_5th20MDegla-7VVHJImDFJynwWLBM";
-    const CHAT_ID = "Helper334XBot"; 
+    const CHAT_ID = "6719366535"; 
 
     // Mensaje a enviar
     const mensaje = `
